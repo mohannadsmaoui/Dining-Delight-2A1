@@ -1,0 +1,54 @@
+function recupererAnimal1($id){
+			$sql="SELECT * from animal where id=$id";
+			$db = config::getConnexion();
+			try{
+				$query=$db->prepare($sql);
+				$query->execute();
+				
+				$user = $query->fetch(PDO::FETCH_OBJ);
+				return $user;
+			}
+			catch (Exception $e){
+				die('Erreur: '.$e->getMessage());
+			}
+		}
+		public function getAnimalByname($nom) {
+            try {
+                $db = config::getConnexion();
+                $query = $db->prepare(
+                    'SELECT * FROM animal WHERE nom = :nom'
+                );
+                $query->execute([
+                    'nom' => $nom
+                ]);
+                return $query->fetch();
+            } catch (PDOException $e) {
+                $e->getMessage();
+            }
+        }
+		function trierAnimal(){
+
+            $sql="SELECT * FROM animal order by nom";
+            $db = config::getConnexion();
+            try{
+                $liste = $db->query($sql);
+                return $liste;
+            }
+            catch (Exception $e){
+                die('Erreur: '.$e->getMessage());
+            }
+        } 
+
+
+        function trierAnimaldesc(){
+
+            $sql="SELECT * FROM client order by prix desc";
+            $db = config::getConnexion();
+            try{
+                $liste = $db->query($sql);
+                return $liste;
+            }
+            catch (Exception $e){
+                die('Erreur: '.$e->getMessage());
+            }
+        }
